@@ -1,3 +1,5 @@
+import 'package:animated_nft_app/core/constants/constants.dart';
+import 'package:animated_nft_app/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,11 +12,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light().copyWith(
+        appBarTheme: const AppBarTheme().copyWith(backgroundColor: kPinkColor),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomePage(),
     );
   }
 }
