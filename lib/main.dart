@@ -1,5 +1,5 @@
 import 'package:animated_nft_app/core/constants/constants.dart';
-import 'package:animated_nft_app/home_page.dart';
+import 'package:animated_nft_app/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
