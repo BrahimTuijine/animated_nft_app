@@ -99,8 +99,6 @@ const List<NFTCollection> nftCollection = [
       ),
     ],
   ),
-
-
   NFTCollection(
     name: 'Tarot',
     by: 'Oscar',
@@ -270,10 +268,6 @@ const List<NFTCollection> nftCollection = [
   ),
 ];
 
-// functions
-
-//TODO animated Navigation
-
 // styles
 const bigTextStyle = TextStyle(
   fontSize: 35,
@@ -286,10 +280,12 @@ const mediumTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
 );
 const smallTextStyle = TextStyle(fontSize: 14, color: kWhiteColor);
+
 final roundWhite = BoxDecoration(
   color: kWhiteColor,
   borderRadius: radius10,
 );
+
 final radius10 = BorderRadius.circular(10);
 final radius100 = BorderRadius.circular(100);
 final linearGradient = LinearGradient(
