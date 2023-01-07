@@ -1,4 +1,5 @@
 import 'package:animated_nft_app/core/constants/constants.dart';
+import 'package:animated_nft_app/screens/explore_screen.dart';
 import 'package:animated_nft_app/widgets/rotated_list_view.dart';
 import 'package:animated_nft_app/widgets/slide_to_continue.dart';
 import 'package:flutter/material.dart';
@@ -44,11 +45,16 @@ class HomePage extends HookWidget {
                 ),
               ),
               SlideToContinue(
-                background: kPinkColor,
-                foreground: kWhiteColor,
-                text: '  Slide to continue',
-                onConfirm: () {},
-              ),
+                  background: kPinkColor,
+                  foreground: kWhiteColor,
+                  text: '  Slide to continue',
+                  onConfirm: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ExploreScreen()),
+                    );
+                  }),
               const SizedBox(height: 15),
             ],
           ),
