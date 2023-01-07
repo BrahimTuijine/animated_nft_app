@@ -288,6 +288,7 @@ final roundWhite = BoxDecoration(
 
 final radius10 = BorderRadius.circular(10);
 final radius100 = BorderRadius.circular(100);
+
 final linearGradient = LinearGradient(
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
