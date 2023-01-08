@@ -5,8 +5,9 @@ import 'package:animated_nft_app/widgets/small_container.dart';
 import 'package:flutter/material.dart';
 
 import 'package:animated_nft_app/core/models/nft_collection.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class NFTScreen extends StatelessWidget {
+class NFTScreen extends HookWidget {
   final NFTCollection collection;
   const NFTScreen({
     Key? key,
@@ -15,6 +16,28 @@ class NFTScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    late AnimationController animationController;
+    late Animation animationFiltredList;
+    late Animation animationList;
+
+    useEffect(() {
+      animationController = useAnimationController(
+        duration: const Duration(seconds: 1),
+      );
+
+      animationFiltredList = Tween<double>(begin: 1, end: 0).animate(
+          CurvedAnimation(
+              parent: animationController,
+              curve: const Interval(.5, 1, curve: Curves.easeIn)));
+
+      animationList = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
+          parent: animationController,
+          curve: const Interval(0, .5, curve: Curves.easeIn)));
+
+      animationController.forward();
+      return () {};
+    }, const []);
     return SafeArea(
       child: Scaffold(
           body: Column(
@@ -110,12 +133,20 @@ class NFTScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: (collection.nft!.length / 2).ceil(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return NFTCardWidget(
-                          nft: collection.nft![index],
+                    child: AnimatedBuilder(
+                      animation: animationList,
+                      builder: (BuildContext context, Widget? child) {
+                        return Transform.translate(
+                          offset: Offset(0, height * animationList.value),
+                          child: ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: (collection.nft!.length / 2).ceil(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return NFTCardWidget(
+                                nft: collection.nft![index],
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
@@ -123,17 +154,27 @@ class NFTScreen extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        const FilterWidget(
-                          
-                        ),
+                        FilterWidget(),
                         Expanded(
-                          child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: (collection.nft!.length / 2).ceil(),
-                            itemBuilder: (BuildContext context, int index) {
-                              index += (collection.nft!.length / 2).floor();
-                              return NFTCardWidget(
-                                nft: collection.nft![index],
+                          child: AnimatedBuilder(
+                            animation: animationFiltredList,
+                            builder: (BuildContext context, Widget? child) {
+                              return Transform.translate(
+                                offset: Offset(
+                                    0, height * animationFiltredList.value),
+                                child: ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  itemCount:
+                                      (collection.nft!.length / 2).ceil(),
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    index +=
+                                        (collection.nft!.length / 2).floor();
+                                    return NFTCardWidget(
+                                      nft: collection.nft![index],
+                                    );
+                                  },
+                                ),
                               );
                             },
                           ),

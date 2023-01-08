@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
 import 'dart:math';
 
 import 'package:animated_nft_app/widgets/list_image.dart';
@@ -18,11 +19,20 @@ class RotatedListView extends HookWidget {
   Widget build(BuildContext context) {
     final ScrollController scrollController =
         useScrollController(initialScrollOffset: 2);
+
     useEffect(() {
       WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        scrollController.animateTo(scrollController.position.maxScrollExtent,
-            duration: Duration(seconds: Random().nextInt(5) + 5),
-            curve: Curves.easeInOut);
+        scheduleMicrotask(
+          () {
+            scrollController.animateTo(
+                scrollController.position.maxScrollExtent ==
+                        scrollController.offset
+                    ? 0
+                    : scrollController.position.maxScrollExtent,
+                duration: Duration(seconds: Random().nextInt(5) + 5),
+                curve: Curves.easeInOut);
+          },
+        );
       });
       return null;
     }, const []);
